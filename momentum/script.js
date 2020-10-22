@@ -1,5 +1,6 @@
 // DOM Elements
 const time = document.querySelector('.time'),
+date = document.querySelector('.date'),
   greeting = document.querySelector('.greeting'),
   name = document.querySelector('.name'),
   focus = document.querySelector('.focus');
@@ -17,17 +18,20 @@ function showTime() {
   // Set AM or PM
   const amPm = hour >= 12 ? 'PM' : 'AM';
 
-  // 12hr Format
-  hour = hour % 12 || 12;
-
   // Output Time
-  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
-    sec
-  )} ${showAmPm ? amPm : ''}`;
+  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
 
   setTimeout(showTime, 1000);
 }
 
+function showDate() {
+  let today = new Date();
+    let options = { weekday: 'long', month: 'long', day: 'numeric' };
+  // Output Date
+  date.innerHTML = `${new Intl.DateTimeFormat('en-US', options).format(today)}`;
+
+  setTimeout(showDate, 1000);
+}
 // Add Zeros
 function addZero(n) {
   return (parseInt(n, 10) < 10 ? '0' : '') + n;
@@ -107,6 +111,7 @@ focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
 
 // Run
+showDate();
 showTime();
 setBgGreet();
 getName();
